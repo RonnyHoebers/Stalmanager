@@ -15,7 +15,7 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
 header{position:sticky;top:0;z-index:5;background:rgba(245,246,244,.92);backdrop-filter:blur(14px);padding:calc(env(safe-area-inset-top) + 12px) 18px 12px;border-bottom:1px solid var(--line)}
 h1{font-size:28px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px}
-main{padding:16px 16px calc(95px + env(safe-area-inset-bottom));max-width:760px;margin:auto}
+main{padding:16px 16px calc(185px + env(safe-area-inset-bottom));max-width:760px;margin:auto}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 2px 10px #00000008}
 .big{font-size:26px;font-weight:750;margin-top:4px}.label{color:var(--muted);font-size:13px}
 .btn{border:0;border-radius:14px;padding:13px 15px;font-weight:700;font-size:15px;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#e8efeb;color:var(--green)}
@@ -25,11 +25,24 @@ nav .inner{display:flex;gap:8px;max-width:760px;width:100%}nav button{flex:1;bac
 section{display:none}.active-section{display:block}
 form{display:grid;gap:12px}.field label{display:block;font-size:13px;color:var(--muted);margin:0 0 6px 2px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:16px}
 .checks{display:flex;gap:8px}.check{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.check input{margin-right:7px}
-table{width:100%;border-collapse:collapse;font-size:13px}.list{display:grid;gap:9px}.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.amount{font-weight:750}.muted{color:var(--muted)}.pill{display:inline-block;background:#edf2ef;color:#476056;border-radius:999px;padding:4px 8px;font-size:11px;margin-top:5px}
+table{width:100%;border-collapse:collapse;font-size:13px}.list{display:grid;gap:9px}.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.amount{font-weight:750}.delete-btn{margin-top:7px;border:0;background:#fff0f0;color:#c83c3c;border-radius:9px;padding:6px 9px;font-size:16px;cursor:pointer}.delete-btn:active{transform:scale(.95)}.muted{color:var(--muted)}.pill{display:inline-block;background:#edf2ef;color:#476056;border-radius:999px;padding:4px 8px;font-size:11px;margin-top:5px}
 .bar{height:9px;background:#e9eeeb;border-radius:9px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--green);border-radius:9px}
 h2{font-size:20px;margin:5px 0 14px}h3{font-size:15px;margin:0 0 10px}
 .notice{background:#eef6f1;color:#315e4c;border-radius:14px;padding:12px;font-size:13px;margin-bottom:12px}
 .empty{text-align:center;color:var(--muted);padding:30px}
+
+.nav-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px 0}
+.nav-tile{min-height:72px;border:1px solid var(--line);border-radius:18px;background:#fff;color:var(--text);font-size:15px;font-weight:750;box-shadow:0 2px 8px #00000008;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer}
+.nav-tile .ico{font-size:25px}.nav-tile.active{background:#e9f0ec;color:var(--green);border-color:#cbdad2}
+@media(max-width:380px){.nav-tile{min-height:64px;font-size:14px}.nav-tile .ico{font-size:22px}}
+
+.chart{width:100%;height:240px;display:block}
+.chart-note{font-size:12px;color:var(--muted);margin-top:8px}
+.action-row{display:flex;gap:7px;justify-content:flex-end;margin-top:8px}
+.action-btn{border:0;border-radius:9px;padding:6px 9px;font-size:15px;cursor:pointer}
+.edit-btn{background:#e8efeb;color:var(--green)} .danger-btn{background:#fff0f0;color:var(--red)}
+.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:380px){.backup-actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -49,8 +62,9 @@ h2{font-size:20px;margin:5px 0 14px}h3{font-size:15px;margin:0 0 10px}
 </section>
 
 <section id="add">
-  <h2>Nieuwe kost</h2>
+  <h2 id="formTitle">Nieuwe kost</h2>
   <form onsubmit="saveExpense(event)">
+    <input type="hidden" id="editIndex" value="">
     <div class="field"><label>Bedrag (€)</label><input id="amount" type="number" step="0.01" min="0" required placeholder="0,00"></div>
     <div class="field"><label>Datum</label><input id="date" type="date" required></div>
     <div class="field"><label>Voor welk paard?</label><div class="checks">
@@ -61,7 +75,7 @@ h2{font-size:20px;margin:5px 0 14px}h3{font-size:15px;margin:0 0 10px}
     <div class="field"><label>Leverancier</label><input id="supplier" placeholder="bv. Bosscherhof"></div>
     <div class="field"><label>Omschrijving</label><input id="description" placeholder="bv. Stalgeld"></div>
     <div class="field"><label>Betaalmethode</label><select id="payment"></select></div>
-    <button class="btn primary" type="submit">Kosten opslaan</button>
+    <div class="row"><button class="btn secondary" type="button" onclick="cancelEdit()">Annuleren</button><button class="btn primary" type="submit" id="saveBtn">Kosten opslaan</button></div>
   </form>
 </section>
 
@@ -77,24 +91,45 @@ h2{font-size:20px;margin:5px 0 14px}h3{font-size:15px;margin:0 0 10px}
 <section id="analysis">
   <h2>Analyse</h2>
   <div class="grid">
-    <div class="card"><div class="label">Irano</div><div class="big" id="aIrano">€ 0,00</div></div>
-    <div class="card"><div class="label">Eausara</div><div class="big" id="aEausara">€ 0,00</div></div>
+    <div class="card"><div class="label">Irano — dit jaar</div><div class="big" id="aIrano">€ 0,00</div></div>
+    <div class="card"><div class="label">Eausara — dit jaar</div><div class="big" id="aEausara">€ 0,00</div></div>
   </div>
-  <div class="card" style="margin-top:12px"><h3>Kosten per categorie</h3><div id="categories"></div></div>
+  <div class="card" style="margin-top:12px"><h3>Maandelijkse kosten — dit jaar</h3><canvas id="monthlyChart" class="chart"></canvas><div class="chart-note">Volledige maandtotalen van januari t/m december.</div></div>
+  <div class="card" style="margin-top:12px"><h3>Irano vs. Eausara — dit jaar</h3><canvas id="horseChart" class="chart"></canvas><div class="chart-note">Gedeelde kosten zijn 50/50 verdeeld.</div></div>
+  <div class="card" style="margin-top:12px"><h3>Kosten per categorie — dit jaar</h3><div id="categories"></div></div>
+</section>
+<section id="backup">
+  <h2>Back-up</h2>
+  <div class="card">
+    <h3>Gegevens veilig bewaren</h3>
+    <p class="muted">Maak regelmatig een back-up. Je eigen toegevoegde en gewijzigde kosten staan op je toestel.</p>
+    <div class="backup-actions">
+      <button class="btn primary" onclick="exportBackup()">⬇️ Back-up maken</button>
+      <button class="btn secondary" onclick="document.getElementById('importFile').click()">⬆️ Back-up importeren</button>
+    </div>
+    <input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)">
+  </div>
+  <div class="card">
+    <h3>Excel / CSV</h3>
+    <p class="muted">Exporteer alle kosten naar CSV. Dit bestand kan rechtstreeks in Excel worden geopend.</p>
+    <button class="btn secondary" onclick="exportCSV()">📄 CSV exporteren</button>
+  </div>
 </section>
 </main>
 
-<nav><div class="inner">
-<button id="n-home" class="active" onclick="show('home')">⌂<br><small>Home</small></button>
-<button id="n-add" onclick="show('add')">＋<br><small>Toevoegen</small></button>
-<button id="n-overview" onclick="show('overview')">☷<br><small>Kosten</small></button>
-<button id="n-analysis" onclick="show('analysis')">◔<br><small>Analyse</small></button>
+<nav><div class="nav-tiles">
+<button id="n-home" class="nav-tile active" onclick="show('home')"><span class="ico">🏠</span>Home</button>
+<button id="n-add" class="nav-tile" onclick="openAdd()"><span class="ico">➕</span>Toevoegen</button>
+<button id="n-overview" class="nav-tile" onclick="show('overview')"><span class="ico">📋</span>Kosten</button>
+<button id="n-analysis" class="nav-tile" onclick="show('analysis')"><span class="ico">📊</span>Analyse</button>
+<button id="n-backup" class="nav-tile" onclick="show('backup')"><span class="ico">💾</span>Back-up</button>
 </div></nav>
 
 <script>
 const initial = [{"date": "2026-04-01", "irano": true, "eausara": true, "category": "Les", "supplier": "Steffie Pellens", "description": "Les Myrthe + Les Marley", "amount": 40.0, "payment": "Cash"}, {"date": "2026-04-02", "irano": true, "eausara": true, "category": "Dierenarts", "supplier": "Equivet", "description": "Equest 700kg 1 spuit ontw", "amount": 96.4, "payment": "Overschrijving"}, {"date": "2026-04-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.0, "payment": "BC"}, {"date": "2026-04-07", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Voeding", "amount": 76.65, "payment": "BC"}, {"date": "2026-04-08", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 30.0, "payment": "BC"}, {"date": "2026-04-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-04-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 150.0, "payment": "Domiciliëring"}, {"date": "2026-04-12", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 8.0, "payment": "BC"}, {"date": "2026-04-15", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 99.12, "payment": "BC"}, {"date": "2026-04-18", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 12.5, "payment": "Cash"}, {"date": "2026-04-19", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-04-29", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.5, "payment": "Cash"}, {"date": "2026-04-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 67.87, "payment": ""}, {"date": "2026-04-16", "irano": true, "eausara": true, "category": "Dierenarts", "supplier": "Equivet", "description": "Vaccinatie + ontworming", "amount": 0.0, "payment": "Overschrijving"}, {"date": "2026-05-04", "irano": true, "eausara": true, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 53.0, "payment": "Cash"}, {"date": "2026-05-04", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Voeding", "amount": 68.7, "payment": "BC"}, {"date": "2026-05-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-05-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-05-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 150.0, "payment": "Domiciliëring"}, {"date": "2026-05-15", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 9.0, "payment": "Cash"}, {"date": "2026-05-15", "irano": false, "eausara": true, "category": "Verzorging", "supplier": "Dierenwereld Ricky", "description": "Kalmeringstift", "amount": 53.98, "payment": "BC"}, {"date": "2026-05-17", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-05-17", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 100.0, "payment": "Cash"}, {"date": "2026-05-17", "irano": true, "eausara": false, "category": "Wedstrijd", "supplier": "Equento", "description": "Jumping", "amount": 20.0, "payment": "BC"}, {"date": "2026-05-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-05-22", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 77.2, "payment": "BC"}, {"date": "2026-05-29", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 22.5, "payment": "BC"}, {"date": "2026-06-03", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "BC"}, {"date": "2026-06-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-06-06", "irano": true, "eausara": true, "category": "Materialen", "supplier": "De Müller", "description": "Hooibotten", "amount": 22.0, "payment": "BC"}, {"date": "2026-06-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-06-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-06-11", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 17.95, "payment": "BC"}, {"date": "2026-06-12", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 23.502, "payment": "BC"}, {"date": "2026-06-17", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 30.0, "payment": "BC"}, {"date": "2026-06-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.0, "payment": "BC"}, {"date": "2026-06-25", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 14.0, "payment": "BC"}, {"date": "2026-06-26", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Tropical", "description": "Ijsje", "amount": 15.0, "payment": "BC"}, {"date": "2026-06-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 121.8, "payment": "BC"}, {"date": "2026-06-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 59.9, "payment": "BC"}, {"date": "2026-06-29", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "De Krekel", "description": "Frieten", "amount": 27.0, "payment": "BC"}, {"date": "2026-06-30", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-07-03", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-07-03", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Kusadasi", "description": "Kebab/pizza", "amount": 51.2, "payment": "BC"}, {"date": "2026-07-03", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-07-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-07-05", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "", "description": "Broodjes", "amount": 42.7, "payment": "BC"}, {"date": "2026-07-06", "irano": true, "eausara": true, "category": "Tanken", "supplier": "Gulf", "description": "", "amount": 70.03, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Ons Ijshuys Bilzen", "description": "Ijsje", "amount": 6.0, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 135.0, "payment": "Cash"}, {"date": "2026-07-08", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Mc Donalds", "description": "Burgers", "amount": 19.5, "payment": "BC"}, {"date": "2026-07-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-07-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-07-09", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 20.95, "payment": "BC"}, {"date": "2026-07-11", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Mc Donalds", "description": "Burgers", "amount": 64.6, "payment": "BC"}, {"date": "2026-07-12", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Veges", "description": "", "amount": 139.6, "payment": "BC"}, {"date": "2026-07-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-07-24", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Kusadasi", "description": "Kebab/pizza", "amount": 63.0, "payment": "BC"}, {"date": "2026-07-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-07-24", "irano": true, "eausara": true, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 69.0, "payment": "BC"}, {"date": "2026-07-28", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 17.5, "payment": "BC"}, {"date": "2026-07-28", "irano": true, "eausara": false, "category": "Les", "supplier": "Sentower", "description": "Springles Marley", "amount": 25.0, "payment": "Cash"}, {"date": "2026-07-29", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Comfort, slobber, look, vliegenlint en wortelen", "amount": 99.75, "payment": "BC"}, {"date": "2026-07-31", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Overschrijving"}, {"date": "2026-08-02", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 42.0, "payment": "Cash"}, {"date": "2026-08-02", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "4 vliegendekens", "amount": 120.0, "payment": "Online"}, {"date": "2026-08-04", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "Overschrijving"}, {"date": "2026-08-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-06", "irano": true, "eausara": true, "category": "Les", "supplier": "Steffie Pellens", "description": "Les Myrthe + Les Marley", "amount": 40.0, "payment": "Cash"}, {"date": "2026-08-06", "irano": true, "eausara": false, "category": "Dierenarts", "supplier": "Mathias", "description": "Windels+watten+zalf", "amount": 65.0, "payment": "BC"}, {"date": "2026-08-07", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-08", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "Cash"}, {"date": "2026-08-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-08-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-08-10", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "Cash"}, {"date": "2026-08-14", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-08-16", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 12.5, "payment": "Cash"}, {"date": "2026-08-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "Cash"}, {"date": "2026-08-21", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-22", "irano": true, "eausara": true, "category": "Voer", "supplier": "Dave Vangenck", "description": "Hooibotten", "amount": 30.0, "payment": "Overschrijving"}, {"date": "2026-08-23", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 17.5, "payment": "Cash"}, {"date": "2026-08-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 2.5, "payment": "Cash"}, {"date": "2026-08-26", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Hartog Comfort+slobbermash+vitamine E", "amount": 71.25, "payment": "BC"}, {"date": "2026-08-28", "irano": true, "eausara": true, "category": "Voer", "supplier": "Epplejeck", "description": "Paardenkoekjes 2x  + vitamine E + glucosamine", "amount": 61.3, "payment": "BC"}, {"date": "2026-08-30", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-09-01", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 16.5, "payment": "BC"}, {"date": "2026-09-05", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 105.0, "payment": "Cash"}, {"date": "2026-09-05", "irano": false, "eausara": false, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 69.0, "payment": "BC"}, {"date": "2026-09-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "BC"}, {"date": "2026-09-07", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-09-09", "irano": true, "eausara": true, "category": "Verzorging", "supplier": "Jeroen besteld ", "description": "Electrolyten", "amount": -150.0, "payment": "BC"}, {"date": "2026-09-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-09-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-09-11", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 0.0, "payment": "BC"}];
 const categories = ["Dierenarts", "Hoefsmid", "Kantine", "Les", "Lunch/Diner", "Materialen", "Stalling", "Tanken", "Verzorging", "Voer", "Wedstrijd"];
 const payments = ["BC", "Cash", "Domiciliëring", "Online", "Overschrijving"];
+
 let expenses = JSON.parse(localStorage.getItem('stalmanager_expenses') || 'null') || initial;
 const money = n => new Intl.NumberFormat('nl-BE',{style:'currency',currency:'EUR'}).format(n||0);
 const today = new Date();
@@ -104,27 +139,52 @@ document.getElementById('date').value = iso(today);
 document.getElementById('category').innerHTML = categories.map(x=>`<option>${esc(x)}</option>`).join('');
 document.getElementById('payment').innerHTML = `<option value="">Kies…</option>`+payments.map(x=>`<option>${esc(x)}</option>`).join('');
 
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function show(id){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active-section'));
   document.getElementById(id).classList.add('active-section');
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('n-'+id).classList.add('active');
+  const nav=document.getElementById('n-'+id); if(nav) nav.classList.add('active');
   renderAll();
+}
+function openAdd(){resetForm();show('add')}
+function resetForm(){
+  document.getElementById('editIndex').value='';
+  document.getElementById('formTitle').textContent='Nieuwe kost';
+  document.getElementById('saveBtn').textContent='Kosten opslaan';
+  document.querySelector('#add form').reset();
+  document.getElementById('date').value=iso(today);
+}
+function cancelEdit(){resetForm();show('home')}
+function startEdit(index){
+  const x=expenses[index]; if(!x)return;
+  document.getElementById('editIndex').value=index;
+  document.getElementById('formTitle').textContent='Kost wijzigen';
+  document.getElementById('saveBtn').textContent='Wijziging opslaan';
+  document.getElementById('amount').value=x.amount;
+  document.getElementById('date').value=x.date;
+  document.getElementById('irano').checked=!!x.irano;
+  document.getElementById('eausara').checked=!!x.eausara;
+  document.getElementById('category').value=x.category;
+  document.getElementById('supplier').value=x.supplier||'';
+  document.getElementById('description').value=x.description||'';
+  document.getElementById('payment').value=x.payment||'';
+  show('add');
 }
 function saveExpense(e){
   e.preventDefault();
   const ir=document.getElementById('irano').checked, ea=document.getElementById('eausara').checked;
   if(!ir && !ea){alert('Kies minstens één paard.');return}
-  expenses.unshift({
+  const item={
     date:document.getElementById('date').value, irano:ir, eausara:ea,
     category:document.getElementById('category').value, supplier:document.getElementById('supplier').value.trim(),
     description:document.getElementById('description').value.trim(), amount:Number(document.getElementById('amount').value),
     payment:document.getElementById('payment').value
-  });
+  };
+  const idx=document.getElementById('editIndex').value;
+  if(idx==='') expenses.unshift(item); else expenses[Number(idx)]=item;
   localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses));
-  e.target.reset(); document.getElementById('date').value=iso(today);
-  show('home');
+  resetForm(); show('home');
 }
 function horseAmount(x,h){
   if(x.irano && x.eausara) return x.amount/2;
@@ -132,12 +192,23 @@ function horseAmount(x,h){
   if(h==='eausara' && x.eausara) return x.amount;
   return 0;
 }
-function sum(list, h=null){return list.reduce((a,x)=>a+(h?horseAmount(x,h):x.amount),0)}
+function sum(list,h=null){return list.reduce((a,x)=>a+(h?horseAmount(x,h):x.amount),0)}
 function inPeriod(x,p){
   const d=new Date(x.date), n=new Date();
   if(p==='month') return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth();
   if(p==='year') return d.getFullYear()===n.getFullYear();
   return true;
+}
+function itemHTML(x){
+  const horses=[x.irano?'Irano':'',x.eausara?'Eausara':''].filter(Boolean).join(' + ')||'Algemeen';
+  const i=expenses.indexOf(x);
+  return `<div class="item"><div class="row"><div style="min-width:0;flex:1"><b>${esc(x.description||x.category)}</b><div class="muted">${new Date(x.date).toLocaleDateString('nl-BE')} · ${esc(x.supplier||'Geen leverancier')}</div><span class="pill">${esc(horses)} · ${esc(x.category)}</span></div><div style="text-align:right"><div class="amount">${money(x.amount)}</div><div class="action-row"><button class="action-btn edit-btn" onclick="startEdit(${i})" aria-label="Wijzig kost">✏️</button><button class="action-btn danger-btn" onclick="deleteExpense(${i})" aria-label="Verwijder kost">🗑️</button></div></div></div></div>`;
+}
+function deleteExpense(index){
+  const x=expenses[index]; if(!x)return;
+  if(confirm(`Wil je "${x.description||x.category||'deze kost'}" van ${money(x.amount)} verwijderen?`)){
+    expenses.splice(index,1); localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses)); renderAll();
+  }
 }
 function renderAll(){
   const month=expenses.filter(x=>inPeriod(x,'month')), year=expenses.filter(x=>inPeriod(x,'year'));
@@ -145,19 +216,67 @@ function renderAll(){
   iranoTotal.textContent=money(sum(month,'irano')); eausaraTotal.textContent=money(sum(month,'eausara'));
   recent.innerHTML=expenses.slice(0,5).map(itemHTML).join('')||'<div class="empty">Nog geen kosten.</div>';
   const p=document.getElementById('filterPeriod').value, h=document.getElementById('filterHorse').value;
-  let list=expenses.filter(x=>inPeriod(x,p)).filter(x=>h==='all'||x[h]);
+  const list=expenses.filter(x=>inPeriod(x,p)).filter(x=>h==='all'||x[h]);
   expenseList.innerHTML=list.map(itemHTML).join('')||'<div class="empty">Geen kosten gevonden.</div>';
-  aIrano.textContent=money(sum(expenses.filter(x=>inPeriod(x,'year')),'irano'));
-  aEausara.textContent=money(sum(expenses.filter(x=>inPeriod(x,'year')),'eausara'));
-  const cats={}; expenses.filter(x=>inPeriod(x,'year')).forEach(x=>cats[x.category]=(cats[x.category]||0)+x.amount);
+  aIrano.textContent=money(sum(year,'irano')); aEausara.textContent=money(sum(year,'eausara'));
+  const cats={}; year.forEach(x=>cats[x.category]=(cats[x.category]||0)+x.amount);
   const vals=Object.entries(cats).sort((a,b)=>b[1]-a[1]), max=vals[0]?.[1]||1;
-  categories.innerHTML=vals.map(([k,v])=>`<div style="margin:13px 0"><div class="row"><span>${esc(k)}</span><b>${money(v)}</b></div><div class="bar"><i style="width:${v/max*100}%"></i></div></div>`).join('');
+  categories.innerHTML=vals.map(([k,v])=>`<div style="margin:13px 0"><div class="row"><span>${esc(k)}</span><b>${money(v)}</b></div><div class="bar"><i style="width:${Math.max(0,v/max*100)}%"></i></div></div>`).join('')||'<div class="empty">Nog geen gegevens.</div>';
+  drawMonthly(year); drawHorses(year);
 }
-function itemHTML(x){
-  const horses=[x.irano?'Irano':'',x.eausara?'Eausara':''].filter(Boolean).join(' + ')||'Algemeen';
-  return `<div class="item"><div class="row"><div><b>${esc(x.description||x.category)}</b><div class="muted">${new Date(x.date).toLocaleDateString('nl-BE')} · ${esc(x.supplier||'Geen leverancier')}</div><span class="pill">${esc(horses)} · ${esc(x.category)}</span></div><div class="amount">${money(x.amount)}</div></div></div>`;
+function setupCanvas(id){
+  const c=document.getElementById(id), dpr=window.devicePixelRatio||1, w=Math.max(c.clientWidth,280), h=240;
+  c.width=w*dpr; c.height=h*dpr; const q=c.getContext('2d'); q.setTransform(dpr,0,0,dpr,0,0); q.clearRect(0,0,w,h); return [q,w,h];
+}
+function drawMonthly(year){
+  const [q,w,h]=setupCanvas('monthlyChart'), vals=Array(12).fill(0);
+  year.forEach(x=>{const d=new Date(x.date); if(d.getMonth()>=0) vals[d.getMonth()]+=Number(x.amount)||0});
+  const max=Math.max(...vals.map(v=>Math.max(v,0)),1), left=34,right=10,top=18,bottom=38;
+  q.font='11px -apple-system,BlinkMacSystemFont,sans-serif'; q.textAlign='center';
+  q.strokeStyle='#dfe5e1'; q.lineWidth=1;
+  q.beginPath(); q.moveTo(left,top); q.lineTo(left,h-bottom); q.lineTo(w-right,h-bottom); q.stroke();
+  const names=['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  const slot=(w-left-right)/12, bw=Math.max(8,slot*.56);
+  vals.forEach((v,i)=>{const bh=(h-top-bottom)*Math.max(v,0)/max, x=left+i*slot+(slot-bw)/2,y=h-bottom-bh;
+    q.fillStyle='#1f6f52'; q.fillRect(x,y,bw,bh);
+    q.fillStyle='#6b756f'; q.fillText(names[i],x+bw/2,h-14);
+    if(v>0){q.fillStyle='#18201c'; q.font='10px -apple-system'; q.fillText(Math.round(v),x+bw/2,Math.max(12,y-4)); q.font='11px -apple-system'}
+  });
+}
+function drawHorses(year){
+  const [q,w,h]=setupCanvas('horseChart'), vals=[sum(year,'irano'),sum(year,'eausara')], names=['Irano','Eausara'];
+  const max=Math.max(...vals,1), left=42,right=18,top=18,bottom=48,base=h-bottom;
+  q.strokeStyle='#dfe5e1'; q.beginPath(); q.moveTo(left,top);q.lineTo(left,base);q.lineTo(w-right,base);q.stroke();
+  const slot=(w-left-right)/2,bw=Math.min(105,slot*.55);
+  vals.forEach((v,i)=>{const bh=(base-top)*Math.max(v,0)/max,x=left+i*slot+(slot-bw)/2,y=base-bh;
+    q.fillStyle='#1f6f52';q.fillRect(x,y,bw,bh);q.fillStyle='#18201c';q.font='12px -apple-system';q.textAlign='center';q.fillText(money(v),x+bw/2,Math.max(14,y-8));q.fillStyle='#6b756f';q.fillText(names[i],x+bw/2,h-20);
+  });
+}
+function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function exportBackup(){
+  const data={app:'Stalmanager',version:3,exportedAt:new Date().toISOString(),expenses};
+  downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'stalmanager-backup.json');
+}
+function importBackup(e){
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{try{
+    const data=JSON.parse(reader.result);
+    if(!Array.isArray(data.expenses)) throw new Error('invalid');
+    if(confirm(`Deze back-up bevat ${data.expenses.length} kosten. Je huidige gegevens worden vervangen. Doorgaan?`)){
+      expenses=data.expenses; localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses)); renderAll(); alert('Back-up succesvol geïmporteerd.');
+    }
+  }catch(err){alert('Ongeldige Stalmanager-back-up.')}};
+  reader.readAsText(file); e.target.value='';
+}
+function exportCSV(){
+  const header=['Datum','Irano','Eausara','Categorie','Leverancier','Omschrijving','Bedrag','Betaalmethode'];
+  const lines=[header,...expenses.map(x=>[x.date,x.irano?'Ja':'Nee',x.eausara?'Ja':'Nee',x.category,x.supplier||'',x.description||'',x.amount,x.payment||''])];
+  const csv='\ufeff'+lines.map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(';')).join('\r\n');
+  downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'stalmanager-kosten.csv');
 }
 renderAll();
+window.addEventListener('resize',()=>{if(document.getElementById('analysis').classList.contains('active-section')){const y=expenses.filter(x=>inPeriod(x,'year'));drawMonthly(y);drawHorses(y)}});
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body></html>

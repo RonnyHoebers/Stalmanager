@@ -1,14 +1,27 @@
-# Stalmanager – iPhone webapp
+STALMANAGER - volledige iPhone/PWA versie
 
-Deze versie gebruikt je bestaande Stalmanager.xlsx als startdata.
-Irano en Eausara worden apart getoond. Als een kost voor beide paarden is aangevinkt,
-wordt die kost voor de individuele paardtotalen 50/50 verdeeld. Het algemene totaal
-blijft het volledige bedrag.
+Bestanden:
+- index.html
+- manifest.json
+- sw.js
+- icon.svg
 
-## Op iPhone installeren
-1. Zet deze map online op een HTTPS-webadres (bijv. via GitHub Pages, Netlify of een andere hosting).
-2. Open de webpagina in Safari op je iPhone.
-3. Tik op Deel -> Zet op beginscherm.
-4. Kies 'Voeg toe'. De app opent daarna als een zelfstandige app.
+Installatie:
+1. Upload alle vier bestanden naar je GitHub repository (stalmanager).
+2. Vervang de bestaande bestanden.
+3. GitHub Pages moet ingeschakeld blijven.
+4. Open je bestaande Stalmanager op de iPhone.
 
-De gegevens die je daarna toevoegt worden lokaal op het toestel bewaard via localStorage.
+Functies:
+- Grote tegels Home, Toevoegen, Kosten, Analyse en Back-up
+- 95 bestaande kosten uit Excel als startgegevens
+- Toevoegen, wijzigen en verwijderen
+- Maand- en jaartotalen
+- Irano/Eausara 50/50 voor gedeelde kosten
+- Maandelijkse grafiek
+- Irano vs Eausara grafiek
+- Categorie-analyse
+- JSON back-up maken/importeren
+- CSV-export voor Excel
+
+Let op: lokale gegevens in de bestaande app blijven behouden zolang localStorage niet wordt gewist. Maak vóór een grote wijziging altijd eerst een back-up via de app.
