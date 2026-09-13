@@ -1,16 +1,12 @@
 {
-  "name": "Stalmanager",
-  "short_name": "Stalmanager",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f5f6f4",
-  "theme_color": "#1f6f52",
-  "lang": "nl-BE",
-  "icons": [
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
+  "name":"Stalmanager",
+  "short_name":"Stalmanager",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#f4f5f2",
+  "theme_color":"#0d4f3b",
+  "icons":[
+    {"src":"icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"},
+    {"src":"apple-touch-icon.png","sizes":"180x180","type":"image/png","purpose":"any"}
   ]
 }

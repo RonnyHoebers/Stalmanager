@@ -3,280 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1f6f52">
+<meta name="theme-color" content="#0d4f3b">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Stalmanager">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.png">
 <title>Stalmanager</title>
 <style>
-:root{--green:#1f6f52;--bg:#f5f6f4;--card:#fff;--text:#18201c;--muted:#6b756f;--line:#e3e7e4;--red:#c83c3c}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-header{position:sticky;top:0;z-index:5;background:rgba(245,246,244,.92);backdrop-filter:blur(14px);padding:calc(env(safe-area-inset-top) + 12px) 18px 12px;border-bottom:1px solid var(--line)}
-h1{font-size:28px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px}
-main{padding:16px 16px calc(185px + env(safe-area-inset-bottom));max-width:760px;margin:auto}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 2px 10px #00000008}
-.big{font-size:26px;font-weight:750;margin-top:4px}.label{color:var(--muted);font-size:13px}
-.btn{border:0;border-radius:14px;padding:13px 15px;font-weight:700;font-size:15px;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#e8efeb;color:var(--green)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.row+.row{margin-top:12px}
-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:10}
-nav .inner{display:flex;gap:8px;max-width:760px;width:100%}nav button{flex:1;background:transparent;border:0;padding:8px 4px;color:var(--muted);font-weight:650}nav button.active{color:var(--green)}
-section{display:none}.active-section{display:block}
-form{display:grid;gap:12px}.field label{display:block;font-size:13px;color:var(--muted);margin:0 0 6px 2px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:16px}
-.checks{display:flex;gap:8px}.check{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.check input{margin-right:7px}
-table{width:100%;border-collapse:collapse;font-size:13px}.list{display:grid;gap:9px}.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.amount{font-weight:750}.delete-btn{margin-top:7px;border:0;background:#fff0f0;color:#c83c3c;border-radius:9px;padding:6px 9px;font-size:16px;cursor:pointer}.delete-btn:active{transform:scale(.95)}.muted{color:var(--muted)}.pill{display:inline-block;background:#edf2ef;color:#476056;border-radius:999px;padding:4px 8px;font-size:11px;margin-top:5px}
-.bar{height:9px;background:#e9eeeb;border-radius:9px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--green);border-radius:9px}
-h2{font-size:20px;margin:5px 0 14px}h3{font-size:15px;margin:0 0 10px}
-.notice{background:#eef6f1;color:#315e4c;border-radius:14px;padding:12px;font-size:13px;margin-bottom:12px}
-.empty{text-align:center;color:var(--muted);padding:30px}
-
-.nav-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px 0}
-.nav-tile{min-height:72px;border:1px solid var(--line);border-radius:18px;background:#fff;color:var(--text);font-size:15px;font-weight:750;box-shadow:0 2px 8px #00000008;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer}
-.nav-tile .ico{font-size:25px}.nav-tile.active{background:#e9f0ec;color:var(--green);border-color:#cbdad2}
-@media(max-width:380px){.nav-tile{min-height:64px;font-size:14px}.nav-tile .ico{font-size:22px}}
-
-.chart{width:100%;height:240px;display:block}
-.chart-note{font-size:12px;color:var(--muted);margin-top:8px}
-.action-row{display:flex;gap:7px;justify-content:flex-end;margin-top:8px}
-.action-btn{border:0;border-radius:9px;padding:6px 9px;font-size:15px;cursor:pointer}
-.edit-btn{background:#e8efeb;color:var(--green)} .danger-btn{background:#fff0f0;color:var(--red)}
-.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:380px){.backup-actions{grid-template-columns:1fr}}
+:root{--green:#0d4f3b;--green2:#1d7657;--cream:#f4f5f2;--card:#fff;--text:#17332a;--muted:#6d7b75;--line:#e1e8e3;--soft:#eaf3ee;--gold:#d7a642;--red:#c73b42;--shadow:0 8px 26px rgba(15,55,42,.08)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--cream)}
+body{margin:0;background:linear-gradient(180deg,#edf3ef 0,#f6f7f4 240px);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{padding:calc(env(safe-area-inset-top) + 10px) 16px 8px;position:sticky;top:0;z-index:20;background:rgba(246,247,244,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(225,232,227,.8)}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:900px;margin:auto}.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:40px;height:40px;border-radius:12px;box-shadow:0 4px 12px rgba(13,79,59,.2)}h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.3px}
+.sub{font-size:11px;color:var(--muted);margin-top:1px}.header-date{font-size:11px;color:var(--muted);text-align:right}
+main{max-width:900px;margin:auto;padding:14px 14px calc(86px + env(safe-area-inset-bottom))}
+section{display:none}.active-section{display:block}.hero{position:relative;overflow:hidden;border-radius:26px;min-height:260px;background:#0d4f3b;box-shadow:var(--shadow);margin-bottom:14px}
+.hero img{width:100%;height:290px;object-fit:cover;object-position:center;display:block;filter:saturate(.95)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,48,35,.05),rgba(0,48,35,.78) 88%)}
+.hero-content{position:absolute;inset:auto 18px 18px;z-index:1;color:white}.hero-logo{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.hero-logo img{width:38px;height:38px}.hero-title{font-size:30px;font-weight:850;letter-spacing:-1px}.hero-tag{font-size:13px;opacity:.95;margin-top:1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow);margin-bottom:12px}
+.metric{min-height:105px;display:flex;flex-direction:column;justify-content:space-between}.label{color:var(--muted);font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.35px}
+.big{font-size:24px;font-weight:850;letter-spacing:-.6px;margin-top:5px}.small{font-size:12px;color:var(--muted)}.positive{color:#168056;font-weight:750}.negative{color:var(--red);font-weight:750}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}h2{font-size:23px;letter-spacing:-.4px;margin:4px 0 14px}h3{font-size:15px;margin:0 0 10px}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 2px 9px}.section-title h3{margin:0;font-size:16px}
+.btn{border:0;border-radius:14px;padding:11px 14px;font-weight:750;font-size:14px}.primary{background:var(--green);color:#fff;box-shadow:0 5px 14px rgba(13,79,59,.18)}.secondary{background:var(--soft);color:var(--green)}
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick{border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px;text-align:left;min-height:76px;color:var(--text);box-shadow:0 3px 12px rgba(15,55,42,.05)}
+.quick .qico{font-size:21px;display:block;margin-bottom:5px}.quick b{font-size:13px}.quick span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.filterbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}select,.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--text);font-size:15px;outline:none}
+select:focus,.field input:focus,.field textarea:focus{border-color:#8ab9a4;box-shadow:0 0 0 3px #eaf3ee}
+.pills{display:flex;gap:7px;overflow:auto;padding-bottom:3px;margin-bottom:10px;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
+.pill-btn{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--muted);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700}.pill-btn.active{background:var(--green);border-color:var(--green);color:#fff}
+.item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 12px;margin-bottom:8px}.item-main{min-width:0;flex:1}
+.item-title{font-weight:750;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item-meta{font-size:11px;color:var(--muted);margin-top:3px}
+.amount{font-weight:850;font-size:15px;white-space:nowrap}.item-actions{display:flex;gap:5px;margin-top:7px;justify-content:flex-end}.icon-btn{border:0;border-radius:9px;padding:6px 8px;background:#edf3ef;font-size:14px}.icon-btn.danger{background:#fff0f0;color:var(--red)}
+.badge{display:inline-flex;align-items:center;gap:5px;background:#eef5f1;color:#476258;border-radius:999px;padding:4px 8px;font-size:10px;margin-top:5px}.empty{text-align:center;color:var(--muted);padding:28px 8px}
+.chart{width:100%;height:230px;display:block}.chart-wrap{overflow:hidden}.summary-banner{background:linear-gradient(135deg,#0d4f3b,#1e7658);color:#fff;border-radius:20px;padding:16px;margin-bottom:12px}.summary-banner .big{font-size:28px}.summary-banner .small{color:#dcebe4}
+.category-row{margin:13px 0}.cat-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}.bar{height:8px;background:#e7eeea;border-radius:99px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#1d7657,#8ebfa8);border-radius:99px}
+.suggestion{border:1px solid #dce9e1;background:linear-gradient(135deg,#f7fbf8,#edf6f0);border-radius:18px;padding:13px;margin-bottom:9px}.suggestion.warn{background:#fff9ee;border-color:#f1e1b8}
+.sug-icon{font-size:22px;width:34px}.sug-title{font-weight:800;font-size:13px}.sug-text{font-size:11px;color:var(--muted);line-height:1.35;margin-top:3px}.save{color:#13734e;font-weight:850;font-size:13px;white-space:nowrap}
+.tip{background:#fff8e9;border:1px solid #f2e2b9;border-radius:16px;padding:12px;font-size:12px;color:#715b2a}
+form{display:grid;gap:12px}.field label{display:block;font-size:12px;color:var(--muted);font-weight:650;margin:0 0 6px 2px}.checks{display:flex;gap:8px}.check{flex:1;border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff;font-size:14px}.check input{margin-right:6px;accent-color:var(--green)}
+.form-actions{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:7px 10px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-top:1px solid var(--line);box-shadow:0 -8px 25px rgba(20,50,40,.07)}
+.nav-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:760px;margin:auto}nav button{min-width:0;border:0;background:transparent;border-radius:15px;padding:7px 2px 6px;color:#75817b;font-size:11px;font-weight:750;line-height:1.15;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px}
+nav button .ico{font-size:20px;line-height:20px}nav button.active{background:#e7f1eb;color:var(--green);box-shadow:inset 0 0 0 1px #d2e3da}
+@media(min-width:700px){main{padding-left:20px;padding-right:20px}.hero img{height:340px}.quick-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:370px){main{padding-left:10px;padding-right:10px}.big{font-size:21px}.hero-title{font-size:27px}nav{padding-left:5px;padding-right:5px}nav button{font-size:10px}nav button .ico{font-size:18px}.grid2{gap:7px}.card{padding:12px}}
 </style>
 </head>
 <body>
-<header><h1>Stalmanager</h1><div class="sub" id="today"></div></header>
+<header><div class="header-row"><div class="brand"><img class="brand-icon" src="icon.png"><div><h1>Stalmanager</h1><div class="sub">Samen sterk, financieel in balans</div></div></div><div class="header-date" id="today"></div></div></header>
 <main>
 <section id="home" class="active-section">
-  <div class="grid">
-    <div class="card"><div class="label">Deze maand</div><div class="big" id="monthTotal">€ 0,00</div></div>
-    <div class="card"><div class="label">Dit jaar</div><div class="big" id="yearTotal">€ 0,00</div></div>
-  </div>
-  <div class="grid" style="margin-top:12px">
-    <div class="card"><div class="label">Irano</div><div class="big" id="iranoTotal">€ 0,00</div></div>
-    <div class="card"><div class="label">Eausara</div><div class="big" id="eausaraTotal">€ 0,00</div></div>
-  </div>
-  <div class="card" style="margin-top:12px"><div class="row"><h3>Snelle actie</h3><button class="btn primary" onclick="show('add')">+ Kosten</button></div><p class="muted" style="margin-bottom:0">Gedeelde kosten worden bij Irano en Eausara elk voor 50% meegerekend in de individuele totalen.</p></div>
-  <div class="card" style="margin-top:12px"><h3>Laatste kosten</h3><div id="recent" class="list"></div></div>
+<div class="hero"><img src="paarden.jpg" alt="Twee paarden met hun eigenaars"><div class="hero-content"><div class="hero-logo"><img src="icon.png"><div class="hero-title">Stalmanager</div></div><div class="hero-tag">Samen sterk, financieel in balans ♥</div></div></div>
+<div class="grid2"><div class="card metric"><div class="label">Deze maand</div><div class="big" id="monthTotal">€ 0,00</div><div class="small" id="monthCompare"></div></div><div class="card metric"><div class="label">Dit jaar</div><div class="big" id="yearTotal">€ 0,00</div><div class="small" id="yearCount"></div></div></div>
+<div class="grid2"><div class="card metric"><div class="label">Irano</div><div class="big" id="iranoTotal">€ 0,00</div><div class="small" id="iranoShare"></div></div><div class="card metric"><div class="label">Eausara</div><div class="big" id="eausaraTotal">€ 0,00</div><div class="small" id="eausaraShare"></div></div></div>
+<div class="section-title"><h3>⚡ Snelle acties</h3></div><div class="quick-grid">
+<button class="quick" onclick="openAdd()"><span class="qico">＋</span><b>Kost toevoegen</b><span>Nieuwe uitgave</span></button>
+<button class="quick" onclick="show('overview')"><span class="qico">🧾</span><b>Laatste kosten</b><span>Alles bekijken</span></button>
+<button class="quick" onclick="showAnalysis('3m')"><span class="qico">📊</span><b>3 maanden</b><span>Per categorie</span></button>
+<button class="quick" onclick="showAnalysis('saving')"><span class="qico">💡</span><b>Bespaarcheck</b><span>Waar kan het lager?</span></button></div>
+<div class="section-title"><h3>📌 Laatste kosten</h3><button class="btn secondary" onclick="show('overview')">Toon alle</button></div><div id="recent"></div>
+<div class="section-title"><h3>💡 Slim besparen</h3></div><div id="homeSuggestions"></div>
 </section>
 
-<section id="add">
-  <h2 id="formTitle">Nieuwe kost</h2>
-  <form onsubmit="saveExpense(event)">
-    <input type="hidden" id="editIndex" value="">
-    <div class="field"><label>Bedrag (€)</label><input id="amount" type="number" step="0.01" min="0" required placeholder="0,00"></div>
-    <div class="field"><label>Datum</label><input id="date" type="date" required></div>
-    <div class="field"><label>Voor welk paard?</label><div class="checks">
-      <label class="check"><input id="irano" type="checkbox"> Irano</label>
-      <label class="check"><input id="eausara" type="checkbox"> Eausara</label>
-    </div></div>
-    <div class="field"><label>Categorie</label><select id="category" required></select></div>
-    <div class="field"><label>Leverancier</label><input id="supplier" placeholder="bv. Bosscherhof"></div>
-    <div class="field"><label>Omschrijving</label><input id="description" placeholder="bv. Stalgeld"></div>
-    <div class="field"><label>Betaalmethode</label><select id="payment"></select></div>
-    <div class="row"><button class="btn secondary" type="button" onclick="cancelEdit()">Annuleren</button><button class="btn primary" type="submit" id="saveBtn">Kosten opslaan</button></div>
-  </form>
-</section>
+<section id="add"><h2 id="formTitle">Nieuwe kost</h2><div class="card"><form onsubmit="saveExpense(event)">
+<input type="hidden" id="editIndex" value=""><div class="field"><label>Bedrag (€)</label><input id="amount" type="number" step="0.01" min="0" required placeholder="0,00"></div>
+<div class="field"><label>Datum</label><input id="date" type="date" required></div>
+<div class="field"><label>Voor welk paard? <span class="muted">(optioneel)</span></label><div class="checks"><label class="check"><input id="irano" type="checkbox"> Irano</label><label class="check"><input id="eausara" type="checkbox"> Eausara</label></div></div>
+<div class="field"><label>Categorie</label><select id="category" required></select></div><div class="field"><label>Leverancier</label><input id="supplier" placeholder="bv. Bosscherhof"></div>
+<div class="field"><label>Omschrijving</label><input id="description" placeholder="bv. Stalgeld"></div><div class="field"><label>Betaalmethode</label><select id="payment"></select></div>
+<div class="form-actions"><button class="btn secondary" type="button" onclick="cancelEdit()">Annuleren</button><button class="btn primary" type="submit" id="saveBtn">Kosten opslaan</button></div></form></div></section>
 
-<section id="overview">
-  <h2>Overzicht</h2>
-  <div class="card">
-    <div class="row"><select id="filterHorse" onchange="renderAll()"><option value="all">Alle paarden</option><option value="irano">Irano</option><option value="eausara">Eausara</option></select>
-    <select id="filterPeriod" onchange="renderAll()"><option value="month">Deze maand</option><option value="year">Dit jaar</option><option value="all">Alle jaren</option></select></div>
-  </div>
-  <div id="expenseList" class="list" style="margin-top:12px"></div>
-</section>
+<section id="overview"><h2>Kosten</h2><div class="card"><div class="filterbar"><select id="filterPeriod" onchange="renderAll()"><option value="3m">Afgelopen 3 maanden</option><option value="6m">Afgelopen 6 maanden</option><option value="month">Deze maand</option><option value="year">Dit jaar</option><option value="all">Alle jaren</option></select><select id="filterHorse" onchange="renderAll()"><option value="all">Alle paarden</option><option value="irano">Irano</option><option value="eausara">Eausara</option><option value="none">Geen paard</option></select></div><select id="filterCategory" onchange="renderAll()"></select></div>
+<div class="summary-banner"><div class="small">Gefilterd totaal</div><div class="big" id="filteredTotal">€ 0,00</div><div class="small" id="filteredCount">0 kosten</div></div><div id="expenseList"></div></section>
 
-<section id="analysis">
-  <h2>Analyse</h2>
-  <div class="grid">
-    <div class="card"><div class="label">Irano — dit jaar</div><div class="big" id="aIrano">€ 0,00</div></div>
-    <div class="card"><div class="label">Eausara — dit jaar</div><div class="big" id="aEausara">€ 0,00</div></div>
-  </div>
-  <div class="card" style="margin-top:12px"><h3>Maandelijkse kosten — dit jaar</h3><canvas id="monthlyChart" class="chart"></canvas><div class="chart-note">Volledige maandtotalen van januari t/m december.</div></div>
-  <div class="card" style="margin-top:12px"><h3>Irano vs. Eausara — dit jaar</h3><canvas id="horseChart" class="chart"></canvas><div class="chart-note">Gedeelde kosten zijn 50/50 verdeeld.</div></div>
-  <div class="card" style="margin-top:12px"><h3>Kosten per categorie — dit jaar</h3><div id="categories"></div></div>
-</section>
-<section id="backup">
-  <h2>Back-up</h2>
-  <div class="card">
-    <h3>Gegevens veilig bewaren</h3>
-    <p class="muted">Maak regelmatig een back-up. Je eigen toegevoegde en gewijzigde kosten staan op je toestel.</p>
-    <div class="backup-actions">
-      <button class="btn primary" onclick="exportBackup()">⬇️ Back-up maken</button>
-      <button class="btn secondary" onclick="document.getElementById('importFile').click()">⬆️ Back-up importeren</button>
-    </div>
-    <input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)">
-  </div>
-  <div class="card">
-    <h3>Excel / CSV</h3>
-    <p class="muted">Exporteer alle kosten naar CSV. Dit bestand kan rechtstreeks in Excel worden geopend.</p>
-    <button class="btn secondary" onclick="exportCSV()">📄 CSV exporteren</button>
-  </div>
-</section>
+<section id="analysis"><h2>Analyse & inzicht</h2><div class="card"><div class="filterbar"><select id="analysisPeriod" onchange="renderAll()"><option value="3m">Afgelopen 3 maanden</option><option value="6m">Afgelopen 6 maanden</option><option value="year">Dit jaar</option><option value="all">Alle jaren</option></select><select id="analysisCategory" onchange="renderAll()"></select></div></div>
+<div class="grid2"><div class="card metric"><div class="label">Periode totaal</div><div class="big" id="analysisTotal">€ 0,00</div><div class="small" id="analysisAvg"></div></div><div class="card metric"><div class="label">Grootste categorie</div><div class="big" id="topCategory">—</div><div class="small" id="topCategoryValue"></div></div></div>
+<div class="card chart-wrap"><div class="row"><h3>📈 Uitgaven per maand</h3><span class="small" id="chartPeriodLabel"></span></div><canvas id="monthlyChart" class="chart"></canvas></div>
+<div class="card chart-wrap"><h3>🥧 Uitgaven per categorie</h3><canvas id="categoryChart" class="chart"></canvas></div>
+<div class="card"><h3>🏷️ Categorieën in één oogopslag</h3><div id="categories"></div></div>
+<div class="card chart-wrap"><h3>🐴 Irano vs. Eausara</h3><canvas id="horseChart" class="chart"></canvas><div class="small">Gedeelde kosten worden 50/50 verdeeld.</div></div>
+<div class="section-title"><h3>💡 Waar kan je besparen?</h3></div><div class="tip">De bespaarschatting is een richtwaarde op basis van jouw uitgavenpatroon. Noodzakelijke dierenzorg, hoefzorg en stalling staan niet automatisch als bespaarpost aangeduid.</div><div id="suggestions" style="margin-top:9px"></div></section>
+
+<section id="backup"><h2>Back-up</h2><div class="card"><h3>🔄 Automatische wekelijkse back-up</h3><p class="small">Stalmanager bewaart automatisch maximaal 8 wekelijkse lokale herstelpunten op je iPhone. De nieuwste wordt aangemaakt zodra je de app gebruikt en er 7 dagen voorbij zijn.</p><div class="tip" id="autoBackupStatus" style="margin:10px 0">Back-upstatus laden…</div><div class="backup-actions"><button class="btn primary" onclick="exportBackup()">⬇️ Nu back-up maken</button><button class="btn secondary" onclick="exportLatestAutoBackup()">📦 Laatste auto-back-up</button></div><div style="margin-top:8px"><button class="btn secondary" style="width:100%" onclick="document.getElementById('importFile').click()">⬆️ Back-up importeren</button></div><input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)"></div><div class="card"><h3>Excel / CSV</h3><p class="small">Exporteer alle kosten naar CSV voor Excel.</p><button class="btn secondary" onclick="exportCSV()">📄 CSV exporteren</button></div></section>
 </main>
-
-<nav><div class="nav-tiles">
-<button id="n-home" class="nav-tile active" onclick="show('home')"><span class="ico">🏠</span>Home</button>
-<button id="n-add" class="nav-tile" onclick="openAdd()"><span class="ico">➕</span>Toevoegen</button>
-<button id="n-overview" class="nav-tile" onclick="show('overview')"><span class="ico">📋</span>Kosten</button>
-<button id="n-analysis" class="nav-tile" onclick="show('analysis')"><span class="ico">📊</span>Analyse</button>
-<button id="n-backup" class="nav-tile" onclick="show('backup')"><span class="ico">💾</span>Back-up</button>
-</div></nav>
-
+<nav><div class="nav-inner"><button id="n-home" class="active" onclick="show('home')"><span class="ico">⌂</span>Home</button><button id="n-add" onclick="openAdd()"><span class="ico">＋</span>Toevoegen</button><button id="n-overview" onclick="show('overview')"><span class="ico">☷</span>Kosten</button><button id="n-analysis" onclick="show('analysis')"><span class="ico">▥</span>Analyse</button></div></nav>
 <script>
 const initial = [{"date": "2026-04-01", "irano": true, "eausara": true, "category": "Les", "supplier": "Steffie Pellens", "description": "Les Myrthe + Les Marley", "amount": 40.0, "payment": "Cash"}, {"date": "2026-04-02", "irano": true, "eausara": true, "category": "Dierenarts", "supplier": "Equivet", "description": "Equest 700kg 1 spuit ontw", "amount": 96.4, "payment": "Overschrijving"}, {"date": "2026-04-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.0, "payment": "BC"}, {"date": "2026-04-07", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Voeding", "amount": 76.65, "payment": "BC"}, {"date": "2026-04-08", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 30.0, "payment": "BC"}, {"date": "2026-04-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-04-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 150.0, "payment": "Domiciliëring"}, {"date": "2026-04-12", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 8.0, "payment": "BC"}, {"date": "2026-04-15", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 99.12, "payment": "BC"}, {"date": "2026-04-18", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 12.5, "payment": "Cash"}, {"date": "2026-04-19", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-04-29", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.5, "payment": "Cash"}, {"date": "2026-04-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 67.87, "payment": ""}, {"date": "2026-04-16", "irano": true, "eausara": true, "category": "Dierenarts", "supplier": "Equivet", "description": "Vaccinatie + ontworming", "amount": 0.0, "payment": "Overschrijving"}, {"date": "2026-05-04", "irano": true, "eausara": true, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 53.0, "payment": "Cash"}, {"date": "2026-05-04", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Voeding", "amount": 68.7, "payment": "BC"}, {"date": "2026-05-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-05-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-05-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 150.0, "payment": "Domiciliëring"}, {"date": "2026-05-15", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 9.0, "payment": "Cash"}, {"date": "2026-05-15", "irano": false, "eausara": true, "category": "Verzorging", "supplier": "Dierenwereld Ricky", "description": "Kalmeringstift", "amount": 53.98, "payment": "BC"}, {"date": "2026-05-17", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-05-17", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 100.0, "payment": "Cash"}, {"date": "2026-05-17", "irano": true, "eausara": false, "category": "Wedstrijd", "supplier": "Equento", "description": "Jumping", "amount": 20.0, "payment": "BC"}, {"date": "2026-05-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-05-22", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 77.2, "payment": "BC"}, {"date": "2026-05-29", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 22.5, "payment": "BC"}, {"date": "2026-06-03", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "BC"}, {"date": "2026-06-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-06-06", "irano": true, "eausara": true, "category": "Materialen", "supplier": "De Müller", "description": "Hooibotten", "amount": 22.0, "payment": "BC"}, {"date": "2026-06-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-06-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-06-11", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 17.95, "payment": "BC"}, {"date": "2026-06-12", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 23.502, "payment": "BC"}, {"date": "2026-06-17", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 30.0, "payment": "BC"}, {"date": "2026-06-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 15.0, "payment": "BC"}, {"date": "2026-06-25", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 14.0, "payment": "BC"}, {"date": "2026-06-26", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Tropical", "description": "Ijsje", "amount": 15.0, "payment": "BC"}, {"date": "2026-06-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 121.8, "payment": "BC"}, {"date": "2026-06-29", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 59.9, "payment": "BC"}, {"date": "2026-06-29", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "De Krekel", "description": "Frieten", "amount": 27.0, "payment": "BC"}, {"date": "2026-06-30", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-07-03", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-07-03", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Kusadasi", "description": "Kebab/pizza", "amount": 51.2, "payment": "BC"}, {"date": "2026-07-03", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-07-05", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "BC"}, {"date": "2026-07-05", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "", "description": "Broodjes", "amount": 42.7, "payment": "BC"}, {"date": "2026-07-06", "irano": true, "eausara": true, "category": "Tanken", "supplier": "Gulf", "description": "", "amount": 70.03, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Ons Ijshuys Bilzen", "description": "Ijsje", "amount": 6.0, "payment": "BC"}, {"date": "2026-07-06", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 135.0, "payment": "Cash"}, {"date": "2026-07-08", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Mc Donalds", "description": "Burgers", "amount": 19.5, "payment": "BC"}, {"date": "2026-07-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-07-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-07-09", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "", "amount": 20.95, "payment": "BC"}, {"date": "2026-07-11", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Mc Donalds", "description": "Burgers", "amount": 64.6, "payment": "BC"}, {"date": "2026-07-12", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Veges", "description": "", "amount": 139.6, "payment": "BC"}, {"date": "2026-07-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-07-24", "irano": false, "eausara": false, "category": "Lunch/Diner", "supplier": "Kusadasi", "description": "Kebab/pizza", "amount": 63.0, "payment": "BC"}, {"date": "2026-07-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "BC"}, {"date": "2026-07-24", "irano": true, "eausara": true, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 69.0, "payment": "BC"}, {"date": "2026-07-28", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 17.5, "payment": "BC"}, {"date": "2026-07-28", "irano": true, "eausara": false, "category": "Les", "supplier": "Sentower", "description": "Springles Marley", "amount": 25.0, "payment": "Cash"}, {"date": "2026-07-29", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Comfort, slobber, look, vliegenlint en wortelen", "amount": 99.75, "payment": "BC"}, {"date": "2026-07-31", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Overschrijving"}, {"date": "2026-08-02", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 42.0, "payment": "Cash"}, {"date": "2026-08-02", "irano": true, "eausara": true, "category": "Materialen", "supplier": "Epplejeck", "description": "4 vliegendekens", "amount": 120.0, "payment": "Online"}, {"date": "2026-08-04", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "Overschrijving"}, {"date": "2026-08-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-06", "irano": true, "eausara": true, "category": "Les", "supplier": "Steffie Pellens", "description": "Les Myrthe + Les Marley", "amount": 40.0, "payment": "Cash"}, {"date": "2026-08-06", "irano": true, "eausara": false, "category": "Dierenarts", "supplier": "Mathias", "description": "Windels+watten+zalf", "amount": 65.0, "payment": "BC"}, {"date": "2026-08-07", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-08", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 20.0, "payment": "Cash"}, {"date": "2026-08-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-08-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-08-10", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "Cash"}, {"date": "2026-08-14", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-08-16", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 12.5, "payment": "Cash"}, {"date": "2026-08-20", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 7.5, "payment": "Cash"}, {"date": "2026-08-21", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 5.0, "payment": "Cash"}, {"date": "2026-08-22", "irano": true, "eausara": true, "category": "Voer", "supplier": "Dave Vangenck", "description": "Hooibotten", "amount": 30.0, "payment": "Overschrijving"}, {"date": "2026-08-23", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 17.5, "payment": "Cash"}, {"date": "2026-08-24", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 2.5, "payment": "Cash"}, {"date": "2026-08-26", "irano": true, "eausara": true, "category": "Voer", "supplier": "Lambrichts", "description": "Hartog Comfort+slobbermash+vitamine E", "amount": 71.25, "payment": "BC"}, {"date": "2026-08-28", "irano": true, "eausara": true, "category": "Voer", "supplier": "Epplejeck", "description": "Paardenkoekjes 2x  + vitamine E + glucosamine", "amount": 61.3, "payment": "BC"}, {"date": "2026-08-30", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "Cash"}, {"date": "2026-09-01", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 16.5, "payment": "BC"}, {"date": "2026-09-05", "irano": false, "eausara": true, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen & beslaan", "amount": 105.0, "payment": "Cash"}, {"date": "2026-09-05", "irano": false, "eausara": false, "category": "Voer", "supplier": "Patrick", "description": "Hooibotten", "amount": 69.0, "payment": "BC"}, {"date": "2026-09-06", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 10.0, "payment": "BC"}, {"date": "2026-09-07", "irano": true, "eausara": false, "category": "Hoefsmid", "supplier": "Jurgen", "description": "Bekappen", "amount": 35.0, "payment": "Cash"}, {"date": "2026-09-09", "irano": true, "eausara": true, "category": "Verzorging", "supplier": "Jeroen besteld ", "description": "Electrolyten", "amount": -150.0, "payment": "BC"}, {"date": "2026-09-09", "irano": true, "eausara": false, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-09-09", "irano": false, "eausara": true, "category": "Stalling", "supplier": "Bosscherhof", "description": "Stalgeld", "amount": 300.0, "payment": "Domiciliëring"}, {"date": "2026-09-11", "irano": false, "eausara": false, "category": "Kantine", "supplier": "Bosscherhof", "description": "Dranken", "amount": 0.0, "payment": "BC"}];
-const categories = ["Dierenarts", "Hoefsmid", "Kantine", "Les", "Lunch/Diner", "Materialen", "Stalling", "Tanken", "Verzorging", "Voer", "Wedstrijd"];
-const payments = ["BC", "Cash", "Domiciliëring", "Online", "Overschrijving"];
-
-let expenses = JSON.parse(localStorage.getItem('stalmanager_expenses') || 'null') || initial;
-const money = n => new Intl.NumberFormat('nl-BE',{style:'currency',currency:'EUR'}).format(n||0);
-const today = new Date();
-const iso = d => new Date(d).toISOString().slice(0,10);
-document.getElementById('today').textContent = today.toLocaleDateString('nl-BE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-document.getElementById('date').value = iso(today);
-document.getElementById('category').innerHTML = categories.map(x=>`<option>${esc(x)}</option>`).join('');
-document.getElementById('payment').innerHTML = `<option value="">Kies…</option>`+payments.map(x=>`<option>${esc(x)}</option>`).join('');
-
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function show(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active-section'));
-  document.getElementById(id).classList.add('active-section');
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  const nav=document.getElementById('n-'+id); if(nav) nav.classList.add('active');
-  renderAll();
-}
-function openAdd(){resetForm();show('add')}
-function resetForm(){
-  document.getElementById('editIndex').value='';
-  document.getElementById('formTitle').textContent='Nieuwe kost';
-  document.getElementById('saveBtn').textContent='Kosten opslaan';
-  document.querySelector('#add form').reset();
-  document.getElementById('date').value=iso(today);
-}
-function cancelEdit(){resetForm();show('home')}
-function startEdit(index){
-  const x=expenses[index]; if(!x)return;
-  document.getElementById('editIndex').value=index;
-  document.getElementById('formTitle').textContent='Kost wijzigen';
-  document.getElementById('saveBtn').textContent='Wijziging opslaan';
-  document.getElementById('amount').value=x.amount;
-  document.getElementById('date').value=x.date;
-  document.getElementById('irano').checked=!!x.irano;
-  document.getElementById('eausara').checked=!!x.eausara;
-  document.getElementById('category').value=x.category;
-  document.getElementById('supplier').value=x.supplier||'';
-  document.getElementById('description').value=x.description||'';
-  document.getElementById('payment').value=x.payment||'';
-  show('add');
-}
-function saveExpense(e){
-  e.preventDefault();
-  const ir=document.getElementById('irano').checked, ea=document.getElementById('eausara').checked;
-  if(!ir && !ea){alert('Kies minstens één paard.');return}
-  const item={
-    date:document.getElementById('date').value, irano:ir, eausara:ea,
-    category:document.getElementById('category').value, supplier:document.getElementById('supplier').value.trim(),
-    description:document.getElementById('description').value.trim(), amount:Number(document.getElementById('amount').value),
-    payment:document.getElementById('payment').value
-  };
-  const idx=document.getElementById('editIndex').value;
-  if(idx==='') expenses.unshift(item); else expenses[Number(idx)]=item;
-  localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses));
-  resetForm(); show('home');
-}
-function horseAmount(x,h){
-  if(x.irano && x.eausara) return x.amount/2;
-  if(h==='irano' && x.irano) return x.amount;
-  if(h==='eausara' && x.eausara) return x.amount;
-  return 0;
-}
-function sum(list,h=null){return list.reduce((a,x)=>a+(h?horseAmount(x,h):x.amount),0)}
-function inPeriod(x,p){
-  const d=new Date(x.date), n=new Date();
-  if(p==='month') return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth();
-  if(p==='year') return d.getFullYear()===n.getFullYear();
-  return true;
-}
-function itemHTML(x){
-  const horses=[x.irano?'Irano':'',x.eausara?'Eausara':''].filter(Boolean).join(' + ')||'Algemeen';
-  const i=expenses.indexOf(x);
-  return `<div class="item"><div class="row"><div style="min-width:0;flex:1"><b>${esc(x.description||x.category)}</b><div class="muted">${new Date(x.date).toLocaleDateString('nl-BE')} · ${esc(x.supplier||'Geen leverancier')}</div><span class="pill">${esc(horses)} · ${esc(x.category)}</span></div><div style="text-align:right"><div class="amount">${money(x.amount)}</div><div class="action-row"><button class="action-btn edit-btn" onclick="startEdit(${i})" aria-label="Wijzig kost">✏️</button><button class="action-btn danger-btn" onclick="deleteExpense(${i})" aria-label="Verwijder kost">🗑️</button></div></div></div></div>`;
-}
-function deleteExpense(index){
-  const x=expenses[index]; if(!x)return;
-  if(confirm(`Wil je "${x.description||x.category||'deze kost'}" van ${money(x.amount)} verwijderen?`)){
-    expenses.splice(index,1); localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses)); renderAll();
-  }
-}
+const categories=["Dierenarts","Hoefsmid","Kantine","Les","Lunch/Diner","Materialen","Stalling","Tanken","Verzorging","Voer","Wedstrijd"],payments=["BC","Cash","Domiciliëring","Online","Overschrijving"];
+let expenses=JSON.parse(localStorage.getItem("stalmanager_expenses")||"null")||initial;
+const money=n=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(n)||0),today=new Date(),iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+const periodLabel={"3m":"Afgelopen 3 maanden","6m":"Afgelopen 6 maanden",month:"Deze maand",year:"Dit jaar",all:"Alle jaren"};
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&#039;","'":"&#039;"}[m]));
+document.getElementById("today").textContent=today.toLocaleDateString("nl-BE",{day:"2-digit",month:"short",year:"numeric"});
+document.getElementById("date").value=iso(today);
+for(const id of ["category","filterCategory","analysisCategory"]) document.getElementById(id).innerHTML=(id==="category"?"":"<option value=\"all\">Alle categorieën</option>")+categories.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+document.getElementById("payment").innerHTML='<option value="">Kies…</option>'+payments.map(x=>`<option>${esc(x)}</option>`).join("");
+function show(id){document.querySelectorAll("section").forEach(s=>s.classList.remove("active-section"));document.getElementById(id).classList.add("active-section");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));const n=document.getElementById("n-"+id);if(n)n.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});renderAll()}
+function openAdd(){resetForm();show("add")}function showAnalysis(mode){document.getElementById("analysisPeriod").value=mode==="saving"?"3m":mode;show("analysis")}
+function resetForm(){document.getElementById("editIndex").value="";document.getElementById("formTitle").textContent="Nieuwe kost";document.getElementById("saveBtn").textContent="Kosten opslaan";document.querySelector("#add form").reset();document.getElementById("date").value=iso(today)}
+function cancelEdit(){resetForm();show("home")}
+function startEdit(index){const x=expenses[index];if(!x)return;document.getElementById("editIndex").value=index;document.getElementById("formTitle").textContent="Kost wijzigen";document.getElementById("saveBtn").textContent="Wijziging opslaan";document.getElementById("amount").value=x.amount;document.getElementById("date").value=x.date;document.getElementById("irano").checked=!!x.irano;document.getElementById("eausara").checked=!!x.eausara;document.getElementById("category").value=x.category;document.getElementById("supplier").value=x.supplier||"";document.getElementById("description").value=x.description||"";document.getElementById("payment").value=x.payment||"";show("add")}
+function saveExpense(e){e.preventDefault();const ir=document.getElementById("irano").checked,ea=document.getElementById("eausara").checked,item={date:document.getElementById("date").value,irano:ir,eausara:ea,category:document.getElementById("category").value,supplier:document.getElementById("supplier").value.trim(),description:document.getElementById("description").value.trim(),amount:Number(document.getElementById("amount").value),payment:document.getElementById("payment").value};const idx=document.getElementById("editIndex").value;if(idx==="")expenses.push(item);else expenses[Number(idx)]=item;localStorage.setItem("stalmanager_expenses",JSON.stringify(expenses));autoWeeklyBackup();resetForm();show("home")}
+function deleteExpense(index){const x=expenses[index];if(!x)return;if(confirm(`Wil je "${x.description||x.category||"deze kost"}" van ${money(x.amount)} verwijderen?`)){expenses.splice(index,1);localStorage.setItem("stalmanager_expenses",JSON.stringify(expenses));autoWeeklyBackup();renderAll()}}
+function horseAmount(x,h){if(x.irano&&x.eausara)return x.amount/2;if(h==="irano"&&x.irano)return x.amount;if(h==="eausara"&&x.eausara)return x.amount;return 0}
+function sum(list,h=null){return list.reduce((a,x)=>a+(h?horseAmount(x,h):Number(x.amount)||0),0)}
+function startOfMonth(n){return new Date(today.getFullYear(),today.getMonth()-n+1,1)}
+function inPeriod(x,p){const d=new Date(x.date),n=today;if(p==="month")return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth();if(p==="year")return d.getFullYear()===n.getFullYear();if(p==="3m"||p==="6m"){const start=startOfMonth(p==="3m"?2:5);return d>=start&&d<=n}return true}
+function filteredForPeriod(p,cat="all",horse="all"){return expenses.filter(x=>inPeriod(x,p)&&(cat==="all"||x.category===cat)&&(horse==="all"||(horse==="none"?(!x.irano&&!x.eausara):!!x[horse])))}
+function itemHTML(x){const horses=[x.irano?"Irano":"",x.eausara?"Eausara":""].filter(Boolean).join(" + ")||"Geen paard",i=expenses.indexOf(x);return `<div class="item"><div class="row"><div class="item-main"><div class="item-title">${esc(x.description||x.category)}</div><div class="item-meta">${new Date(x.date).toLocaleDateString("nl-BE")} · ${esc(x.supplier||"Geen leverancier")}</div><span class="badge">${esc(horses)} · ${esc(x.category)}</span></div><div style="text-align:right"><div class="amount">${money(x.amount)}</div><div class="item-actions"><button class="icon-btn" onclick="startEdit(${i})" aria-label="Wijzig">✏️</button><button class="icon-btn danger" onclick="deleteExpense(${i})" aria-label="Verwijder">🗑️</button></div></div></div></div>`}
+function categoryTotals(list){const o={};list.forEach(x=>o[x.category]=(o[x.category]||0)+(Number(x.amount)||0));return Object.entries(o).sort((a,b)=>b[1]-a[1])}
+function suggestionsFor(list){const rates={"Kantine":.22,"Lunch/Diner":.25,"Materialen":.15,"Voer":.08,"Tanken":.10,"Verzorging":.10,"Wedstrijd":.08,"Les":.05,"Stalling":.02,"Hoefsmid":.01,"Dierenarts":0},advice={"Kantine":"Kijk of kleine aankopen gebundeld kunnen worden.","Lunch/Diner":"Plan vooraf en beperk losse aankopen onderweg.","Materialen":"Vergelijk prijzen en stel niet-dringende aankopen even uit.","Voer":"Vergelijk verpakkingen en leveranciers zonder op noodzakelijke voeding te besparen.","Tanken":"Bundel ritten en combineer afspraken waar mogelijk.","Verzorging":"Plan aankopen en gebruik eerst wat al in voorraad is.","Wedstrijd":"Maak vooraf een budget per wedstrijd.","Les":"Bekijk of de lesfrequentie nog past bij je maandbudget.","Stalling":"Besparingsruimte is meestal beperkt; controleer vooral je contract en vaste kosten.","Hoefsmid":"Besparingsruimte is beperkt; vergelijk alleen praktische opties.","Dierenarts":"Geen bespaarsuggestie: noodzakelijke zorg krijgt voorrang."};return categoryTotals(list).map(([cat,val])=>({cat,val,save:val*(rates[cat]??.08),text:advice[cat]||"Vergelijk opties en plan aankopen vooruit."})).filter(x=>x.save>1).sort((a,b)=>b.save-a.save)}
+function renderSuggestions(list,target){const s=suggestionsFor(list).slice(0,4);target.innerHTML=s.length?s.map((x,i)=>`<div class="suggestion ${i===0?"warn":""}"><div class="row"><div class="row" style="justify-content:flex-start"><div class="sug-icon">${["🌿","🛒","🚗","💶"][i]||"💡"}</div><div><div class="sug-title">${esc(x.cat)}</div><div class="sug-text">${esc(x.text)}</div></div></div><div class="save">± ${money(x.save)}<br><span class="small">mogelijk</span></div></div></div>`).join(""):"<div class=\"empty\">Nog geen duidelijke bespaarcategorie in deze periode.</div>"}
 function renderAll(){
-  const month=expenses.filter(x=>inPeriod(x,'month')), year=expenses.filter(x=>inPeriod(x,'year'));
-  monthTotal.textContent=money(sum(month)); yearTotal.textContent=money(sum(year));
-  iranoTotal.textContent=money(sum(month,'irano')); eausaraTotal.textContent=money(sum(month,'eausara'));
-  recent.innerHTML=expenses.slice(0,5).map(itemHTML).join('')||'<div class="empty">Nog geen kosten.</div>';
-  const p=document.getElementById('filterPeriod').value, h=document.getElementById('filterHorse').value;
-  const list=expenses.filter(x=>inPeriod(x,p)).filter(x=>h==='all'||x[h]);
-  expenseList.innerHTML=list.map(itemHTML).join('')||'<div class="empty">Geen kosten gevonden.</div>';
-  aIrano.textContent=money(sum(year,'irano')); aEausara.textContent=money(sum(year,'eausara'));
-  const cats={}; year.forEach(x=>cats[x.category]=(cats[x.category]||0)+x.amount);
-  const vals=Object.entries(cats).sort((a,b)=>b[1]-a[1]), max=vals[0]?.[1]||1;
-  categories.innerHTML=vals.map(([k,v])=>`<div style="margin:13px 0"><div class="row"><span>${esc(k)}</span><b>${money(v)}</b></div><div class="bar"><i style="width:${Math.max(0,v/max*100)}%"></i></div></div>`).join('')||'<div class="empty">Nog geen gegevens.</div>';
-  drawMonthly(year); drawHorses(year);
+const month=expenses.filter(x=>inPeriod(x,"month")),year=expenses.filter(x=>inPeriod(x,"year")),mt=sum(month),yt=sum(year);
+document.getElementById("monthTotal").textContent=money(mt);document.getElementById("yearTotal").textContent=money(yt);document.getElementById("yearCount").textContent=year.length+" kosten dit jaar";
+const prevStart=new Date(today.getFullYear(),today.getMonth()-1,1),prevEnd=new Date(today.getFullYear(),today.getMonth(),0),prev=expenses.filter(x=>new Date(x.date)>=prevStart&&new Date(x.date)<=prevEnd),pt=sum(prev),delta=pt?(mt-pt)/pt*100:0;
+const mc=document.getElementById("monthCompare");mc.textContent=pt?((delta<=0?"↓ ":"↑ ")+Math.abs(delta).toFixed(0)+"% t.o.v. vorige maand"):"Nog geen vorige maand";mc.className="small "+(delta<=0?"positive":"negative");
+const it=sum(month,"irano"),ea=sum(month,"eausara"),share=mt?100*it/mt:0;document.getElementById("iranoTotal").textContent=money(it);document.getElementById("eausaraTotal").textContent=money(ea);document.getElementById("iranoShare").textContent=mt?share.toFixed(1)+"% van maandtotaal":"Geen uitgaven";document.getElementById("eausaraShare").textContent=mt?(100-share).toFixed(1)+"% van maandtotaal":"Geen uitgaven";
+const sorted=[...expenses].sort((a,b)=>String(b.date).localeCompare(String(a.date)));document.getElementById("recent").innerHTML=sorted.slice(0,5).map(itemHTML).join("")||"<div class=\"empty\">Nog geen kosten.</div>";renderSuggestions(month,document.getElementById("homeSuggestions"));
+const fp=document.getElementById("filterPeriod").value,fh=document.getElementById("filterHorse").value,fc=document.getElementById("filterCategory").value,fl=filteredForPeriod(fp,fc,fh);document.getElementById("filteredTotal").textContent=money(sum(fl));document.getElementById("filteredCount").textContent=fl.length+" kosten";document.getElementById("expenseList").innerHTML=[...fl].sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(itemHTML).join("")||"<div class=\"empty\">Geen kosten gevonden voor deze filters.</div>";
+const ap=document.getElementById("analysisPeriod").value,ac=document.getElementById("analysisCategory").value,base=filteredForPeriod(ap,"all","all"),al=filteredForPeriod(ap,ac,"all"),cats=categoryTotals(base),at=sum(al);
+const monthsIn=ap==="3m"?3:ap==="6m"?6:ap==="year"?Math.max(1,today.getMonth()+1):Math.max(1,monthsBetweenAll(expenses));document.getElementById("analysisTotal").textContent=money(at);document.getElementById("analysisAvg").textContent="gemiddeld "+money(at/monthsIn)+" per maand";document.getElementById("topCategory").textContent=cats[0]?cats[0][0]:"—";document.getElementById("topCategoryValue").textContent=cats[0]?money(cats[0][1]):"Geen gegevens";document.getElementById("chartPeriodLabel").textContent=periodLabel[ap];
+document.getElementById("categories").innerHTML=cats.map(([k,v])=>`<div class="category-row"><div class="cat-line"><span>${esc(k)}</span><b>${money(v)}</b></div><div class="bar"><i style="width:${Math.max(2,v/(cats[0]?.[1]||1)*100)}%"></i></div></div>`).join("")||"<div class=\"empty\">Geen gegevens.</div>";
+drawMonthly(ac==="all"?base:al,ap);drawCategoryChart(cats);drawHorses(base);renderSuggestions(base,document.getElementById("suggestions"));
 }
-function setupCanvas(id){
-  const c=document.getElementById(id), dpr=window.devicePixelRatio||1, w=Math.max(c.clientWidth,280), h=240;
-  c.width=w*dpr; c.height=h*dpr; const q=c.getContext('2d'); q.setTransform(dpr,0,0,dpr,0,0); q.clearRect(0,0,w,h); return [q,w,h];
-}
-function drawMonthly(year){
-  const [q,w,h]=setupCanvas('monthlyChart'), vals=Array(12).fill(0);
-  year.forEach(x=>{const d=new Date(x.date); if(d.getMonth()>=0) vals[d.getMonth()]+=Number(x.amount)||0});
-  const max=Math.max(...vals.map(v=>Math.max(v,0)),1), left=34,right=10,top=18,bottom=38;
-  q.font='11px -apple-system,BlinkMacSystemFont,sans-serif'; q.textAlign='center';
-  q.strokeStyle='#dfe5e1'; q.lineWidth=1;
-  q.beginPath(); q.moveTo(left,top); q.lineTo(left,h-bottom); q.lineTo(w-right,h-bottom); q.stroke();
-  const names=['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
-  const slot=(w-left-right)/12, bw=Math.max(8,slot*.56);
-  vals.forEach((v,i)=>{const bh=(h-top-bottom)*Math.max(v,0)/max, x=left+i*slot+(slot-bw)/2,y=h-bottom-bh;
-    q.fillStyle='#1f6f52'; q.fillRect(x,y,bw,bh);
-    q.fillStyle='#6b756f'; q.fillText(names[i],x+bw/2,h-14);
-    if(v>0){q.fillStyle='#18201c'; q.font='10px -apple-system'; q.fillText(Math.round(v),x+bw/2,Math.max(12,y-4)); q.font='11px -apple-system'}
-  });
-}
-function drawHorses(year){
-  const [q,w,h]=setupCanvas('horseChart'), vals=[sum(year,'irano'),sum(year,'eausara')], names=['Irano','Eausara'];
-  const max=Math.max(...vals,1), left=42,right=18,top=18,bottom=48,base=h-bottom;
-  q.strokeStyle='#dfe5e1'; q.beginPath(); q.moveTo(left,top);q.lineTo(left,base);q.lineTo(w-right,base);q.stroke();
-  const slot=(w-left-right)/2,bw=Math.min(105,slot*.55);
-  vals.forEach((v,i)=>{const bh=(base-top)*Math.max(v,0)/max,x=left+i*slot+(slot-bw)/2,y=base-bh;
-    q.fillStyle='#1f6f52';q.fillRect(x,y,bw,bh);q.fillStyle='#18201c';q.font='12px -apple-system';q.textAlign='center';q.fillText(money(v),x+bw/2,Math.max(14,y-8));q.fillStyle='#6b756f';q.fillText(names[i],x+bw/2,h-20);
-  });
-}
-function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function exportBackup(){
-  const data={app:'Stalmanager',version:3,exportedAt:new Date().toISOString(),expenses};
-  downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'stalmanager-backup.json');
-}
-function importBackup(e){
-  const file=e.target.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=()=>{try{
-    const data=JSON.parse(reader.result);
-    if(!Array.isArray(data.expenses)) throw new Error('invalid');
-    if(confirm(`Deze back-up bevat ${data.expenses.length} kosten. Je huidige gegevens worden vervangen. Doorgaan?`)){
-      expenses=data.expenses; localStorage.setItem('stalmanager_expenses',JSON.stringify(expenses)); renderAll(); alert('Back-up succesvol geïmporteerd.');
-    }
-  }catch(err){alert('Ongeldige Stalmanager-back-up.')}};
-  reader.readAsText(file); e.target.value='';
-}
-function exportCSV(){
-  const header=['Datum','Irano','Eausara','Categorie','Leverancier','Omschrijving','Bedrag','Betaalmethode'];
-  const lines=[header,...expenses.map(x=>[x.date,x.irano?'Ja':'Nee',x.eausara?'Ja':'Nee',x.category,x.supplier||'',x.description||'',x.amount,x.payment||''])];
-  const csv='\ufeff'+lines.map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(';')).join('\r\n');
-  downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'stalmanager-kosten.csv');
-}
-renderAll();
-window.addEventListener('resize',()=>{if(document.getElementById('analysis').classList.contains('active-section')){const y=expenses.filter(x=>inPeriod(x,'year'));drawMonthly(y);drawHorses(y)}});
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-</script>
-</body></html>
+function monthsBetweenAll(list){if(!list.length)return 1;const ds=list.map(x=>new Date(x.date)).sort((a,b)=>a-b);return Math.max(1,(ds.at(-1).getFullYear()-ds[0].getFullYear())*12+ds.at(-1).getMonth()-ds[0].getMonth()+1)}
+function setupCanvas(id,h=230){const c=document.getElementById(id),dpr=window.devicePixelRatio||1,w=Math.max(c.clientWidth,280);c.width=w*dpr;c.height=h*dpr;const q=c.getContext("2d");q.setTransform(dpr,0,0,dpr,0,0);q.clearRect(0,0,w,h);return[q,w,h]}
+function drawMonthly(list,p){const [q,w,h]=setupCanvas("monthlyChart"),vals=[],labels=[];if(p==="3m"||p==="6m"){const count=p==="3m"?3:6;for(let i=count-1;i>=0;i--){const d=new Date(today.getFullYear(),today.getMonth()-i,1);labels.push(d.toLocaleDateString("nl-BE",{month:"short"}));vals.push(list.filter(x=>{const z=new Date(x.date);return z.getFullYear()===d.getFullYear()&&z.getMonth()===d.getMonth()}).reduce((a,x)=>a+Number(x.amount||0),0))}}else if(p==="year"){for(let i=0;i<12;i++){labels.push(["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"][i]);vals.push(list.filter(x=>new Date(x.date).getFullYear()===today.getFullYear()&&new Date(x.date).getMonth()===i).reduce((a,x)=>a+Number(x.amount||0),0))}}else{const ds=list.map(x=>new Date(x.date)).sort((a,b)=>a-b),first=ds[0]?new Date(ds[0].getFullYear(),ds[0].getMonth(),1):new Date(today.getFullYear(),today.getMonth(),1),count=Math.min(12,Math.max(1,(today.getFullYear()-first.getFullYear())*12+today.getMonth()-first.getMonth()+1));for(let i=count-1;i>=0;i--){const d=new Date(today.getFullYear(),today.getMonth()-i,1);labels.push(d.toLocaleDateString("nl-BE",{month:"short"}));vals.push(list.filter(x=>{const z=new Date(x.date);return z.getFullYear()===d.getFullYear()&&z.getMonth()===d.getMonth()}).reduce((a,x)=>a+Number(x.amount||0),0))}}
+const max=Math.max(...vals,1),left=30,right=8,top=14,bottom=34,base=h-bottom,slot=(w-left-right)/Math.max(vals.length,1),bw=Math.max(18,Math.min(46,slot*.58));q.strokeStyle="#dce5df";q.beginPath();q.moveTo(left,top);q.lineTo(left,base);q.lineTo(w-right,base);q.stroke();q.textAlign="center";
+vals.forEach((v,i)=>{const bh=(base-top)*v/max,x=left+i*slot+(slot-bw)/2,y=base-bh;q.fillStyle="#1d7657";q.fillRect(x,y,bw,bh);if(v){q.fillStyle="#17332a";q.font="10px -apple-system";q.fillText(Math.round(v),x+bw/2,Math.max(12,y-5))}q.fillStyle="#6d7b75";q.font="10px -apple-system";q.fillText(labels[i],x+bw/2,h-14)})}
+function drawCategoryChart(cats){const [q,w,h]=setupCanvas("categoryChart"),total=cats.reduce((a,x)=>a+x[1],0);if(!total)return;const cx=Math.min(95,w*.25),cy=h/2,r=67,inner=37;let a=-Math.PI/2;const fills=["#1d7657","#d7a642","#7696ad","#b6c9bd","#c7773b","#7a6bb2","#5c9aa5","#a78b70","#9a9a9a","#4f8a6f","#d08d9b"];cats.forEach(([,v],i)=>{const da=2*Math.PI*v/total;q.beginPath();q.moveTo(cx,cy);q.arc(cx,cy,r,a,a+da);q.closePath();q.fillStyle=fills[i%fills.length];q.fill();a+=da});q.beginPath();q.arc(cx,cy,inner,0,Math.PI*2);q.fillStyle="#fff";q.fill();q.fillStyle="#17332a";q.font="bold 13px -apple-system";q.textAlign="center";q.fillText(money(total),cx,cy+4);q.textAlign="left";let y=20;cats.slice(0,6).forEach((x,i)=>{q.fillStyle=fills[i%fills.length];q.fillRect(w*.53,y-9,10,10);q.fillStyle="#17332a";q.font="11px -apple-system";q.fillText(x[0],w*.53+16,y);q.fillStyle="#6d7b75";q.fillText(money(x[1]),w*.53+105,y);y+=28})}
+function drawHorses(list){const [q,w,h]=setupCanvas("horseChart"),vals=[sum(list,"irano"),sum(list,"eausara")],names=["Irano","Eausara"],max=Math.max(...vals,1),left=38,right=14,top=18,bottom=45,base=h-bottom,slot=(w-left-right)/2,bw=Math.min(110,slot*.5);q.strokeStyle="#dce5df";q.beginPath();q.moveTo(left,top);q.lineTo(left,base);q.lineTo(w-right,base);q.stroke();q.textAlign="center";vals.forEach((v,i)=>{const bh=(base-top)*v/max,x=left+i*slot+(slot-bw)/2,y=base-bh;q.fillStyle=i?"#8da5b4":"#c17b32";q.fillRect(x,y,bw,bh);q.fillStyle="#17332a";q.font="bold 11px -apple-system";q.fillText(money(v),x+bw/2,Math.max(13,y-7));q.fillStyle="#6d7b75";q.font="11px -apple-system";q.fillText(names[i],x+bw/2,h-18)})}
+function downloadBlob(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function makeBackupData(){return {app:"Stalmanager",version:5.1,exportedAt:new Date().toISOString(),expenses}}
+function autoWeeklyBackup(){try{const key="stalmanager_weekly_backups",lastKey="stalmanager_last_auto_backup";const now=Date.now(),last=Number(localStorage.getItem(lastKey)||0),week=7*24*60*60*1000;if(!last||now-last>=week){const history=JSON.parse(localStorage.getItem(key)||"[]");history.unshift(makeBackupData());localStorage.setItem(key,JSON.stringify(history.slice(0,8)));localStorage.setItem(lastKey,String(now))}updateBackupStatus()}catch(e){}}
+function updateBackupStatus(){const el=document.getElementById("autoBackupStatus");if(!el)return;try{const h=JSON.parse(localStorage.getItem("stalmanager_weekly_backups")||"[]");if(!h.length){el.textContent="Nog geen automatische back-up. Deze wordt bij je eerste gebruik aangemaakt.";return}const d=new Date(h[0].exportedAt);el.innerHTML=`Laatste automatische back-up: <b>${d.toLocaleDateString("nl-BE")} om ${d.toLocaleTimeString("nl-BE",{hour:"2-digit",minute:"2-digit"})}</b> · ${h[0].expenses.length} kosten opgeslagen.`}catch(e){el.textContent="Automatische back-up is lokaal opgeslagen."}}
+function exportBackup(){downloadBlob(new Blob([JSON.stringify(makeBackupData(),null,2)],{type:"application/json"}),"stalmanager-backup-v5.json")}
+function exportLatestAutoBackup(){try{const h=JSON.parse(localStorage.getItem("stalmanager_weekly_backups")||"[]");if(!h.length){alert("Er is nog geen automatische back-up beschikbaar.");return}downloadBlob(new Blob([JSON.stringify(h[0],null,2)],{type:"application/json"}),"stalmanager-wekelijkse-backup.json")}catch(e){alert("De automatische back-up kon niet worden gelezen.")}}
+function importBackup(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!Array.isArray(data.expenses))throw 0;if(confirm(`Deze back-up bevat ${data.expenses.length} kosten. Je huidige gegevens worden vervangen. Doorgaan?`)){expenses=data.expenses;localStorage.setItem("stalmanager_expenses",JSON.stringify(expenses));autoWeeklyBackup();renderAll();alert("Back-up succesvol geïmporteerd.")}}catch(err){alert("Ongeldige Stalmanager-back-up.")}};r.readAsText(file);e.target.value=""}
+function exportCSV(){const header=["Datum","Irano","Eausara","Categorie","Leverancier","Omschrijving","Bedrag","Betaalmethode"],lines=[header,...expenses.map(x=>[x.date,x.irano?"Ja":"Nee",x.eausara?"Ja":"Nee",x.category,x.supplier||"",x.description||"",x.amount,x.payment||""])],csv="\ufeff"+lines.map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(";")).join("\r\n");downloadBlob(new Blob([csv],{type:"text/csv;charset=utf-8"}),"stalmanager-kosten.csv")}
+autoWeeklyBackup();renderAll();window.addEventListener("resize",()=>{renderAll()});if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
+</script></body></html>
